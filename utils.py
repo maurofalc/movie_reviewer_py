@@ -45,5 +45,9 @@ def get_one(films):
     cont += 1
   return aux
 
-def starring(stars):
+def scoring(stars):
   return stars * '⭐️'
+
+def clear():
+  os.system("clear")
+  

@@ -1,4 +1,4 @@
-from utils import get_all, get_one, starring
+from utils import get_all, get_one, scoring
 
 #read
 def list_all():
@@ -7,7 +7,7 @@ def list_all():
     print("Você ainda não possui reviews")
   for key, value in films.items():
     print("\n/=======================\\")
-    print(f"{value[0]}\n{starring(int(value[1]))}\n{value[2]}")
+    print(f"{value[0]}\n{scoring(int(value[1]))}\n{value[2]}")
     print("/=======================\\\n")
 
 def list_one():
