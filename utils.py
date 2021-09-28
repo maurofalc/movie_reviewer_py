@@ -35,10 +35,6 @@ def get_all():
 def get_one(films):
   cont = 1
   aux = []
-  if len(films) == 0:
-    print("Você ainda não possui reviews")
-  print("\n/=======================\\")
-  print("Seus reviews:\n")
   for key, value in films.items():
     print(f"{cont} - {value[0]}")
     aux.append(key)
@@ -50,4 +46,3 @@ def scoring(stars):
 
 def clear():
   os.system("clear")
-  

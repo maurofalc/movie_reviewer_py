@@ -4,13 +4,13 @@ from utils import open_file, close_file, get_all, get_one
 def update_one():
   films = get_all()
   list = get_one(films)
-  i = int(input("Escolha o filme: "))
+  i = int(input("\nEscolha o filme: "))
   new_rating = input("Novas estrelas? ")
   new_coment = input("Novos comentários sobre o filme: ")
   retrieved = open_file("read")
   replacement = ""
   if retrieved == False:
-    print("Você ainda não possui reviews")
+    print("\nVocê ainda não possui reviews\n")
     return
   lines = retrieved.readlines()
   for x in range(0, len(lines)-1, 4):

@@ -8,11 +8,11 @@ def del_all():
 def del_one():
   films = get_all()
   list = get_one(films)
-  i = int(input("Escolha o filme: "))
+  i = int(input("\nEscolha o filme: "))
   replacement = ""
   retrieved = open_file("read")
   if retrieved == False:
-    print("Você ainda não possui reviews")
+    print("\nVocê ainda não possui reviews\n")
     return
   lines = retrieved.readlines()
   for x in range(0, len(lines)-1, 4):
