@@ -1,7 +1,9 @@
-<h2>A simple movie reviewer system developed using the basic data structures of Python</h2>
+## Add reviews to movies in Python
 
-<h3>Instal</h3>
+### Install
 <code>pip install -r requirements.txt</code>
 
-<h3>Run</h3>
+### Run
 <code>python main.py</code>
+
+<sub><sup>Made with ❤️ for a python introduction course</sup></sub>
