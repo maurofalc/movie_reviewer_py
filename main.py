@@ -10,11 +10,13 @@ movie = Movie()
 def open_file(mode):
   if mode == "read":
     if os.path.exists("reviews.txt"):
-      file = open("reviews.txt", "r")
+      file = open("reviews.txt", "r", encoding="utf-8")
     else:
       file = False
+  elif mode == "append":
+    file = open("reviews.txt", "a", encoding="utf-8")
   elif mode == "write":
-    file = open("reviews.txt", "a")
+    file = open("reviews.txt", "w", encoding="utf-8")
   return file
 
 def close_file(file):
@@ -52,7 +54,7 @@ def get_one(films):
 
 #create
 def add_one():
-  file = open_file("write")
+  file = open_file("append")
   busca = input("Procurar pelo filme: ")
   results = movie.search(busca)
   if results:
@@ -85,42 +87,66 @@ def list_one():
   print(f"{films[list[i-1]][0]}\n{films[list[i-1]][1]} estrelas\n{films[list[i-1]][2]}")
   print("/=======================\\\n")
 
+def rewrite():
+  replacement = ""
+  retrieved = open_file("read")
+  if retrieved == False:
+    print("Você ainda não possui reviews")
+    return
+
 #update
 def update_one():
   films = get_all()
   list = get_one(films)
   i = int(input("Escolha o filme: "))
-  rating = int(input("Novas estrelas? "))
-  coment = input("Novos comentários sobre o filme: ")
+  new_rating = input("Novas estrelas? ")
+  new_coment = input("Novos comentários sobre o filme: ")
   retrieved = open_file("read")
   replacement = ""
   if retrieved == False:
     print("Você ainda não possui reviews")
     return
   lines = retrieved.readlines()
-  for x in range(len(lines) - 1):
-    print(lines[x])
-    print(f"IIIEEEE {list[i-1]}")
+  for x in range(0, len(lines)-1, 4):
     if list[i-1] in lines[x]:
-      # new_rating = lines[x + 2].replace(films[list[i-1]][1], rating)
-      new_coment = lines[x + 3].replace(films[list[i-1]][2], coment)
-      replacement += new_coment + "\n"
-  
-  file = open_file("write")
-  file.write(replacement)
-  close_file(file)
+      replacement += lines[x] + lines[x+1] + new_rating + "\n" + new_coment + "\n"
+    else:
+      replacement += lines[x] + lines[x+1] + lines[x+2] + lines[x+3]
+  close_file(retrieved)
+
+  new_file = open_file("write")
+  new_file.write(replacement)
+  close_file(new_file)
 
 #delete
 def del_all():
   os.remove("reviews.txt")
 
 def del_one():
-  return
+  films = get_all()
+  list = get_one(films)
+  i = int(input("Escolha o filme: "))
+  replacement = ""
+  retrieved = open_file("read")
+  if retrieved == False:
+    print("Você ainda não possui reviews")
+    return
+  lines = retrieved.readlines()
+  for x in range(0, len(lines)-1, 4):
+    if list[i-1] in lines[x]:
+      replacement += ""
+    else:
+      replacement += lines[x] + lines[x+1] + lines[x+2] + lines[x+3]
+  close_file(retrieved)
+
+  new_file = open_file("write")
+  new_file.write(replacement)
+  close_file(new_file)
 
 def show_menu():
-  print("1 - Adicionar review")
+  print("1 - Adicionar um review")
   print("2 - Listar todos os reviews")
-  print("3 - Mostrar o review de um filme")
+  print("3 - Exibir review de um filme")
   print("4 - Atualizar um review")
   print("5 - Deletar todos os reviews")
   print("6 - Deletar um review")
